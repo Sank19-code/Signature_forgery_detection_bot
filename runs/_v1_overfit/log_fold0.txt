@@ -1,0 +1,24 @@
+[binary_fold0] train 1824 / val 288 / test 528 images, test writers [8, 18, 19, 25, 28, 29, 40, 42, 46, 51, 55]
+C:\Users\sanka\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\torch\optim\lr_scheduler.py:227: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn(
+ep  1  loss 0.5626  val acc 0.611  auc 0.6769  eer 0.389  (106s)  *
+ep  2  loss 0.3450  val acc 0.691  auc 0.7589  eer 0.309  (35s)  *
+ep  3  loss 0.2146  val acc 0.740  auc 0.8144  eer 0.260  (35s)  *
+ep  4  loss 0.1234  val acc 0.708  auc 0.7695  eer 0.292  (35s)
+ep  5  loss 0.0946  val acc 0.722  auc 0.8009  eer 0.278  (35s)
+ep  6  loss 0.1077  val acc 0.715  auc 0.8027  eer 0.285  (35s)
+ep  7  loss 0.0552  val acc 0.688  auc 0.7680  eer 0.312  (35s)
+ep  8  loss 0.0518  val acc 0.722  auc 0.7863  eer 0.278  (35s)
+ep  9  loss 0.0518  val acc 0.674  auc 0.7630  eer 0.326  (35s)
+ep 10  loss 0.0403  val acc 0.733  auc 0.7932  eer 0.267  (35s)
+ep 11  loss 0.0378  val acc 0.705  auc 0.8096  eer 0.295  (35s)
+ep 12  loss 0.0117  val acc 0.743  auc 0.8187  eer 0.257  (35s)  *
+ep 13  loss 0.0142  val acc 0.722  auc 0.8046  eer 0.278  (35s)
+ep 14  loss 0.0101  val acc 0.750  auc 0.8107  eer 0.250  (35s)
+ep 15  loss 0.0140  val acc 0.767  auc 0.8310  eer 0.233  (35s)  *
+ep 16  loss 0.0083  val acc 0.781  auc 0.8430  eer 0.219  (35s)  *
+ep 17  loss 0.0141  val acc 0.771  auc 0.8399  eer 0.229  (35s)
+ep 18  loss 0.0072  val acc 0.792  auc 0.8478  eer 0.208  (35s)  *
+ep 19  loss 0.0052  val acc 0.764  auc 0.8335  eer 0.236  (35s)
+ep 20  loss 0.0078  val acc 0.764  auc 0.8450  eer 0.236  (35s)
+TEST [binary_fold0]  acc 0.6098  auc 0.7892  eer 0.2689  FAR 0.7008  FRR 0.0795  (thr 1.000 from val)

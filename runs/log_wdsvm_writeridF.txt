@@ -1,0 +1,6 @@
+  fold 0: AUC 0.9510  EER 0.1185  acc 0.8879  FAR 0.0644  FRR 0.1722  per-writer EER 0.0933
+  fold 1: AUC 0.9043  EER 0.1842  acc 0.8055  FAR 0.2462  FRR 0.1292  per-writer EER 0.1094
+  fold 2: AUC 0.8797  EER 0.1904  acc 0.7992  FAR 0.2348  FRR 0.1579  per-writer EER 0.1470
+  fold 3: AUC 0.8972  EER 0.2137  acc 0.7611  FAR 0.3258  FRR 0.1292  per-writer EER 0.1138
+  fold 4: AUC 0.9236  EER 0.1461  acc 0.7822  FAR 0.3333  FRR 0.0718  per-writer EER 0.0933
+WD-SVM [writeridF, binary, 5 refs]  auc 0.9111+/-0.0244  eer 0.1706+/-0.0339  acc 0.8072+/-0.0432  far 0.2409+/-0.0969  frr 0.1321+/-0.0344  mean_writer_eer 0.1114+/-0.0197

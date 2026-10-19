@@ -1,0 +1,19 @@
+[binary_fold3] train 1728 / val 384 / test 528 images, test writers [4, 7, 11, 12, 20, 23, 31, 36, 39, 47, 49]
+C:\Users\sanka\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\torch\optim\lr_scheduler.py:227: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn(
+ep  1  loss 0.6478  val acc 0.711  auc 0.7801  eer 0.289  (45s)  *
+ep  2  loss 0.5595  val acc 0.607  auc 0.7036  eer 0.393  (35s)
+ep  3  loss 0.4724  val acc 0.727  auc 0.8129  eer 0.273  (35s)  *
+ep  4  loss 0.4363  val acc 0.680  auc 0.7760  eer 0.320  (35s)
+ep  5  loss 0.3900  val acc 0.656  auc 0.7428  eer 0.344  (35s)
+ep  6  loss 0.3867  val acc 0.669  auc 0.7471  eer 0.331  (35s)
+ep  7  loss 0.3509  val acc 0.690  auc 0.7910  eer 0.310  (35s)
+ep  8  loss 0.3437  val acc 0.682  auc 0.7895  eer 0.318  (35s)
+ep  9  loss 0.3276  val acc 0.656  auc 0.7432  eer 0.344  (35s)
+ep 10  loss 0.3238  val acc 0.706  auc 0.7852  eer 0.294  (35s)
+ep 11  loss 0.3205  val acc 0.708  auc 0.7903  eer 0.292  (35s)
+ep 12  loss 0.3024  val acc 0.708  auc 0.7927  eer 0.292  (35s)
+ep 13  loss 0.3255  val acc 0.693  auc 0.7837  eer 0.307  (35s)
+ep 14  loss 0.3106  val acc 0.714  auc 0.7940  eer 0.286  (35s)
+ep 15  loss 0.3022  val acc 0.714  auc 0.7951  eer 0.286  (35s)
+TEST [binary_fold3]  acc 0.5833  auc 0.6783  eer 0.3674  FAR 0.2348  FRR 0.5985  (logit thr 0.730 from val)

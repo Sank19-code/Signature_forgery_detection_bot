@@ -1,0 +1,6 @@
+data/
+runs/*/best.pt
+runs/*/test_scores.npy
+scratch/
+*.zip
+__pycache__/

@@ -1,0 +1,24 @@
+[writerid_fold0] 864 images from 36 writers; test writers [8, 18, 19, 25, 28, 29, 40, 42, 46, 51, 55]
+C:\Users\sanka\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\torch\optim\lr_scheduler.py:227: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn(
+ep  1  loss 3.4172  train writer-ID acc 0.133  (19s)
+ep  2  loss 2.1601  train writer-ID acc 0.652  (20s)
+ep  3  loss 1.2983  train writer-ID acc 0.860  (19s)
+ep  4  loss 1.0317  train writer-ID acc 0.921  (19s)
+ep  5  loss 0.9568  train writer-ID acc 0.938  (18s)
+ep  6  loss 0.9004  train writer-ID acc 0.969  (19s)
+ep  7  loss 0.8837  train writer-ID acc 0.955  (19s)
+ep  8  loss 0.8549  train writer-ID acc 0.971  (19s)
+ep  9  loss 0.8148  train writer-ID acc 0.975  (19s)
+ep 10  loss 0.8375  train writer-ID acc 0.975  (19s)
+ep 11  loss 0.8044  train writer-ID acc 0.980  (20s)
+ep 12  loss 0.7846  train writer-ID acc 0.984  (20s)
+ep 13  loss 0.7757  train writer-ID acc 0.991  (19s)
+ep 14  loss 0.7901  train writer-ID acc 0.977  (18s)
+ep 15  loss 0.7708  train writer-ID acc 0.988  (18s)
+ep 16  loss 0.7685  train writer-ID acc 0.990  (19s)
+ep 17  loss 0.7876  train writer-ID acc 0.983  (19s)
+ep 18  loss 0.7881  train writer-ID acc 0.980  (19s)
+ep 19  loss 0.7736  train writer-ID acc 0.986  (18s)
+ep 20  loss 0.7870  train writer-ID acc 0.980  (19s)
+saved C:\Sankar Sriram\Bank Details\DIP\DIP_CASE_STUDY\src\..\runs\writerid_fold0\best.pt

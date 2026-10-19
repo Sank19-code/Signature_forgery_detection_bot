@@ -1,0 +1,13 @@
+[writeridF_fold0] 2112 images from 44 writers; test writers [8, 18, 19, 25, 28, 29, 40, 42, 46, 51, 55]
+C:\Users\sanka\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\torch\optim\lr_scheduler.py:227: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn(
+ep  1  loss 4.1287  train writer-ID acc 0.204  (50s)
+ep  2  loss 2.2963  train writer-ID acc 0.773  (54s)
+ep  3  loss 1.6595  train writer-ID acc 0.905  (56s)
+ep  4  loss 1.4644  train writer-ID acc 0.935  (55s)
+ep  5  loss 1.3538  train writer-ID acc 0.959  (56s)
+ep  6  loss 1.3085  train writer-ID acc 0.950  (53s)
+ep  7  loss 1.2366  train writer-ID acc 0.966  (56s)
+ep  8  loss 1.2127  train writer-ID acc 0.972  (58s)
+ep  9  loss 1.1533  train writer-ID acc 0.981  (50s)
+ep 10  loss 1.1308  train writer-ID acc 0.986  (47s)

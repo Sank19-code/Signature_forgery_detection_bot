@@ -1,0 +1,8 @@
+[binary_fold1] train 1824 / val 288 / test 528 images, test writers [6, 21, 26, 30, 32, 35, 41, 43, 48, 50, 53]
+C:\Users\sanka\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\torch\optim\lr_scheduler.py:227: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn(
+ep  1  loss 0.5432  val acc 0.639  auc 0.7522  eer 0.361  (45s)  *
+ep  2  loss 0.3070  val acc 0.781  auc 0.8709  eer 0.219  (35s)  *
+ep  3  loss 0.2038  val acc 0.778  auc 0.8602  eer 0.222  (35s)
+ep  4  loss 0.1103  val acc 0.781  auc 0.8752  eer 0.219  (35s)  *
+ep  5  loss 0.1029  val acc 0.722  auc 0.8077  eer 0.278  (35s)

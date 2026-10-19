@@ -1,0 +1,6 @@
+  fold 0: AUC 0.9608  EER 0.0995  per-writer EER 0.0809
+  fold 1: AUC 0.9307  EER 0.1437  per-writer EER 0.0875
+  fold 2: AUC 0.8947  EER 0.1904  per-writer EER 0.1242
+  fold 3: AUC 0.9124  EER 0.1880  per-writer EER 0.1161
+  fold 4: AUC 0.9519  EER 0.1171  per-writer EER 0.1038
+WD-SVM [writerid, binary, 5 refs]  AUC 0.9301 +/- 0.0244   EER 0.1477 +/- 0.0367   per-writer EER 0.1025 +/- 0.0164
