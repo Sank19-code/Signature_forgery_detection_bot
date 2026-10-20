@@ -14,7 +14,7 @@ CEDAR's two classes were scanned differently:
 
 | | Genuine (`original_*`) | Forged (`forgeries_*`) |
 |---|---|---|
-| File type | 1-channel grayscale | 3-channel RGB |
+| File type | 1-channel grayscale (4-channel RGBA for writers 29, 39, 55) | 3-channel RGB (4-channel RGBA for writers 29, 39, 55) |
 | Paper (median pixel) | ~240, grey, noisy | ~253, clean white |
 | Ink | light grey | dark |
 
@@ -122,7 +122,13 @@ closed loop where the writer draws a flat underline, or a differently formed cap
 
 ## 5. Reproduce
 
-All code is in Jupyter notebooks in `src/`. **Open them from the `src/` folder** (paths are resolved relative to it)
+**To present the project, open `Final_Signature_Forgery_Detection.ipynb`** (project folder): one notebook that walks
+through the dataset, the shortcut, every DIP preprocessing step, all models, results, Grad-CAM and a verification
+demo, with all outputs saved. It loads the trained models and results (no retraining, ~1 minute to re-run).
+
+The notebooks below in `src/` produce those models and results.
+
+All code is in Jupyter notebooks in `src/`. **Open them from the `src/` folder**
 with the Python 3.11 kernel, and run them in this order:
 
 | # | Notebook | What it does | Run time with existing results |
@@ -166,6 +172,7 @@ pip install opencv-python scikit-learn scikit-image pandas matplotlib ipykernel
 | `src/wd_svm.ipynb` | C/D/E: writer-dependent SVM verification |
 | `src/gradcam.ipynb`, `src/gradcam_verifier.ipynb` | Grad-CAM for A, and through the SVM for D |
 | `src/summarize.ipynb` | all results → `runs/summary.csv` |
+| `Final_Signature_Forgery_Detection.ipynb` | **the final notebook to present**: the whole project with all outputs |
 | `DIP_CaseStudy.ipynb` | the original four-stage preprocessing notebook (runs on Colab or locally) |
 | `archive/py_scripts/` | the earlier `.py` versions of the notebooks, which produced the results above |
 | `runs/_v1_overfit/` | first attempt (no regularisation; threshold saturated at probability 1.0), kept for the record |
