@@ -4,3 +4,4 @@ runs/*/test_scores.npy
 scratch/
 *.zip
 __pycache__/
+Output/

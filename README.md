@@ -19,7 +19,7 @@ CEDAR's two classes were scanned differently:
 | Ink | light grey | dark |
 
 A logistic regression that sees **only intensity statistics** (no stroke shape at all) separates the classes
-almost perfectly (`src/shortcut_probe.py`, 5-fold CV grouped by writer):
+almost perfectly (`src/shortcut_probe.ipynb`, 5-fold CV grouped by writer):
 
 | Input given to the probe | Intensity-only accuracy |
 |---|---|
@@ -28,7 +28,7 @@ almost perfectly (`src/shortcut_probe.py`, 5-fold CV grouped by writer):
 | Canonicalised, **binary ink** | **55.9%** (≈ chance) |
 
 A CNN trained on raw scans would report near-perfect accuracy while learning "grey paper = genuine". So every image
-is **canonicalised** first (`src/preprocess.py`): Otsu ink segmentation → drop specks < 12 px → crop to the signature →
+is **canonicalised** first (`src/preprocess.ipynb`): Otsu ink segmentation → drop specks < 12 px → crop to the signature →
 white background, binary ink → letterbox to 192×384.
 
 The forgeries were also scanned at a different resolution, so stroke thickness could still leak. A **stroke-normalised**
@@ -51,7 +51,7 @@ Augmentation runs *before* the DIP stages, so the Sobel and high-boost channels 
 
 ## 3. Evaluation protocol
 
-* **5-fold CV over writers** (`writer_split` in `src/common.py`): per fold 11 test, 8 validation and 36 training
+* **5-fold CV over writers** (`writer_split` in `src/common.ipynb`): per fold 11 test, 8 validation and 36 training
   writers; no writer is in two of these sets.
 * Everything that is learned or tuned (network weights, best epoch, SVM negatives, **decision threshold**) uses
   training/validation writers only. The threshold is the EER point on the validation writers, applied unchanged
@@ -84,7 +84,7 @@ Model D per fold (AUC): 0.955, 0.927, 0.914, 0.910, 0.948.
 | 5 | 0.931 ± 0.018 | 13.8% | 9.9% |
 | 10 | 0.944 ± 0.016 | 13.0% | 10.0% |
 
-### A. Single-image classifier (`src/train.py`)
+### A. Single-image classifier (`src/train.ipynb`)
 Sees one signature and answers "forged?". 15 epochs, AdamW (backbone LR 1e-4, head 1e-3), weight decay 0.05,
 label smoothing 0.1, dropout 0.5, cosine schedule, AMP. **Why it fails:** with no reference, a skilled forgery of an
 unseen writer is just a plausible signature. The model learns *style* ("careful, slow-looking strokes = forged"),
@@ -92,12 +92,12 @@ so the validation threshold doesn't transfer (FAR/FRR swing ±20 points across f
 (`runs/binary_fold0/gradcam_grid.png`) shows every false rejection in fold 0 belongs to one writer (#29) whose
 careful cursive looks "forgery-like", and missed forgeries put their attention on blank paper.
 
-### B. Siamese verifier (`src/siamese.py`)
+### B. Siamese verifier (`src/siamese.ipynb`)
 Shared EfficientNet-B2 → 256-d embedding; `[|e_r − e_q|, e_r ⊙ e_q]` → MLP; trained on (genuine, genuine) vs
 (genuine, skilled forgery) pairs. Worse than A: 36 training writers are too few to learn a comparison function
 that generalises, and validation AUC swung ±0.1 between epochs.
 
-### C/D. Writer-dependent verification (`src/wd_svm.py`, `src/writer_id.py`)
+### C/D. Writer-dependent verification (`src/wd_svm.ipynb`, `src/writer_id.ipynb`)
 How banks actually verify: compare against the specimens on file. For each test writer, an RBF SVM is trained on
 the CNN embeddings of their **5 genuine specimens** (positives) against genuine signatures of the training writers
 (negatives). **No skilled forgery is used to build the verifier**, which matches a bank with genuine specimens only.
@@ -114,7 +114,7 @@ adds a genuine/forged head to the writer-ID training: it is below D on all 5 fol
 the signature, not scanner resolution.
 
 ### Explainability
-`src/gradcam_verifier.py` backpropagates the per-writer SVM score
+`src/gradcam_verifier.ipynb` backpropagates the per-writer SVM score
 `s(x) = −(Σ aᵢ·exp(−γ‖svᵢ − f(x)‖²) + b)` through the CNN (the torch score matches scikit-learn's
 `decision_function` to 5 decimals). Red marks regions that look *unlike this writer's specimens*, e.g. a forged
 closed loop where the writer draws a flat underline, or a differently formed capital
@@ -122,40 +122,51 @@ closed loop where the writer draws a flat underline, or a differently formed cap
 
 ## 5. Reproduce
 
+All code is in Jupyter notebooks in `src/`. **Open them from the `src/` folder** (paths are resolved relative to it)
+with the Python 3.11 kernel, and run them in this order:
+
+| # | Notebook | What it does | Run time with existing results |
+|---|---|---|---|
+| 1 | `build_cache.ipynb` | extracts the dataset if needed, preprocesses all 2,640 scans into `data/cache_*.npy`, shows the pipeline | ~20 s (skips existing caches) |
+| 2 | `shortcut_probe.ipynb` | the intensity-only probe from section 1 | ~40 s |
+| 3 | `train.ipynb` | A: single-image classifier, 5 folds | loads results |
+| 4 | `siamese.ipynb` | B: Siamese verifier, 5 folds | loads results |
+| 5 | `writer_id.ipynb` | D/E feature extractor (`LAM = 0` SigNet, `LAM = 1.0` SigNet-F) | loads checkpoints |
+| 6 | `wd_svm.ipynb` | C/D/E: per-writer SVM verification, leak check, reference-count sweep | loads results |
+| 7 | `gradcam.ipynb` | Grad-CAM for model A | ~30 s |
+| 8 | `gradcam_verifier.ipynb` | Grad-CAM through the per-writer SVM for model D | ~30 s |
+| 9 | `summarize.ipynb` | every result in one table → `runs/summary.csv` | ~20 s |
+
+`preprocess.ipynb` and `common.ipynb` are library notebooks: they only define functions and are loaded by the
+others with `%run ./common.ipynb`.
+
+Notebooks 3–6 **load existing results instead of retraining**. Set `RETRAIN = True` (`RERUN = True` in
+`wd_svm.ipynb`, `REBUILD = True` in `build_cache.ipynb`) in the settings cell at the top to recompute. Training
+times per fold on an RTX 3050 Laptop (4 GB): classifier ≈ 11 min, Siamese ≈ 40 min, writer-ID ≈ 7 min,
+SigNet-F ≈ 13 min; the SVM stage takes seconds.
+
+Setup:
+
 ```bash
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
-pip install opencv-python scikit-learn scikit-image pandas matplotlib
-unzip Dataset-*.zip -d data
-python src/build_cache.py --mode binary          # also: --mode skel (leak check), raw / canon (shortcut probe)
-python src/shortcut_probe.py
-for k in 0 1 2 3 4; do python src/train.py --fold $k; done        # A
-for k in 0 1 2 3 4; do python src/siamese.py --fold $k; done      # B
-python src/wd_svm.py --ckpt imagenet                              # C
-for k in 0 1 2 3 4; do python src/writer_id.py --fold $k; done    # D: feature extractor
-python src/wd_svm.py --ckpt writerid                              # D
-python src/wd_svm.py --ckpt writerid --mode skel                  # D leak check
-for k in 0 1 2 3 4; do python src/writer_id.py --fold $k --lam 1.0; done && python src/wd_svm.py --ckpt writeridF   # E
-python src/summarize.py
-python src/gradcam.py --run binary_fold0
-python src/gradcam_verifier.py --fold 0
+pip install opencv-python scikit-learn scikit-image pandas matplotlib ipykernel
 ```
-
-Hardware: RTX 3050 Laptop (4 GB). Per fold: classifier ≈ 9 min, Siamese ≈ 23 min, writer-ID ≈ 7 min;
-the SVM stage takes seconds.
 
 ## Files
 
 | Path | What |
 |---|---|
-| `src/preprocess.py` | canonicalisation, stroke normalisation, the notebook's four DIP stages |
-| `src/build_cache.py` | preprocesses all 2,640 scans once into `data/cache_*.npy` |
-| `src/shortcut_probe.py` | intensity-only probe that exposes the scanner shortcut |
-| `src/common.py` | writer-independent split, dataset + augmentation, model, metrics |
-| `src/train.py` | A: single-image classifier |
-| `src/siamese.py` | B: Siamese verifier |
-| `src/writer_id.py` | D/E: writer-identification fine-tuning (feature extractor), optional forgery head |
-| `src/wd_svm.py` | C/D: writer-dependent SVM verification |
-| `src/gradcam.py`, `src/gradcam_verifier.py` | Grad-CAM for A, and through the SVM for D |
-| `src/summarize.py` | all results → `runs/summary.csv` |
+| `src/preprocess.ipynb` | canonicalisation, stroke normalisation, the four DIP stages (library) |
+| `src/common.ipynb` | writer-independent split, dataset + augmentation, threaded batch loader, model, metrics, SVM helpers (library) |
+| `src/build_cache.ipynb` | preprocesses all 2,640 scans once into `data/cache_*.npy` |
+| `src/shortcut_probe.ipynb` | intensity-only probe that exposes the scanner shortcut |
+| `src/train.ipynb` | A: single-image classifier |
+| `src/siamese.ipynb` | B: Siamese verifier |
+| `src/writer_id.ipynb` | D/E: writer-identification fine-tuning (feature extractor), optional forgery head |
+| `src/wd_svm.ipynb` | C/D/E: writer-dependent SVM verification |
+| `src/gradcam.ipynb`, `src/gradcam_verifier.ipynb` | Grad-CAM for A, and through the SVM for D |
+| `src/summarize.ipynb` | all results → `runs/summary.csv` |
+| `DIP_CaseStudy.ipynb` | the original four-stage preprocessing notebook (runs on Colab or locally) |
+| `archive/py_scripts/` | the earlier `.py` versions of the notebooks, which produced the results above |
 | `runs/_v1_overfit/` | first attempt (no regularisation; threshold saturated at probability 1.0), kept for the record |
 | `runs/_v2_writerid_trainval/` | writer-ID trained on train+val writers, discarded because it miscalibrated the validation threshold |
