@@ -1,0 +1,2 @@
+Accuracy,AUC,Threshold,FAR,FRR,True Positives (Forged),True Negatives (Genuine),False Positives (Gen->Forged),False Negatives (Forged->Gen)
+0.7196969696969697,0.8016815886134069,0.7204833030700684,0.2803030303030303,0.2803030303030303,190,190,74,74
